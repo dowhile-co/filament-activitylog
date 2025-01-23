@@ -281,6 +281,13 @@ trait ActionContent
                 ->format(config('filament-activitylog.datetime_format', 'd/m/Y H:i:s'));
         }
 
+        if (is_string($value)) {
+            try {
+                return strip_tags($value);
+            } catch (\Throwable) {
+            }
+        }
+
         return $value;
     }
 
