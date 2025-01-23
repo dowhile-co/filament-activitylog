@@ -281,8 +281,16 @@ trait ActionContent
             return Carbon::parse($value)
                 ->format(config('filament-activitylog.datetime_format', 'd/m/Y H:i:s'));
         } catch (InvalidFormatException $e) {
-            return $value;
         }
+
+        if (is_string($value)) {
+            try {
+                return strip_tags($value);
+            } catch (\Throwable) {
+            }
+        }
+
+        return $value;
     }
 
 }
